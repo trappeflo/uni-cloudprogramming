@@ -1,5 +1,7 @@
 # https://developer.hashicorp.com/terraform/language/manage-sensitive-data
 # https://developer.hashicorp.com/terraform/language/providers
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs
+# https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs
 variable "cloudflare_api_token" {
   description = "Cloudflare API Token"
   type        = string
