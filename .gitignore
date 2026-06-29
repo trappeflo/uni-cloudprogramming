@@ -1,12 +1,11 @@
-# Terraform
+#tokens, secrets...
 terraform.tfvars
+
+#provider plugins
 .terraform/
-.terraform.lock.hcl
+
+#URLs, secrets...
 terraform.tfstate
 terraform.tfstate.backup
 *.tfstate
 *.tfstate.*
-
-# OS
-.DS_Store
-Thumbs.db
