@@ -18,7 +18,7 @@ variable "cloudflare_zone_id" {
 variable "location" {
   description = "Azure Region"
   type        = string
-  default     = "westeurope"
+  default     = "centralus"
 }
 
 variable "resource_group_name" {
