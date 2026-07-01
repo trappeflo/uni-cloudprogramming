@@ -33,8 +33,8 @@ resource "azurerm_resource_group" "rg" {
 }
 
 # Azure Static Web App
-# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/static_site
-resource "azurerm_static_site" "swa" {
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/static_web_app
+resource "azurerm_static_web_app" "swa" {
   name                = var.static_web_app_name
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
@@ -43,11 +43,11 @@ resource "azurerm_static_site" "swa" {
 }
 
 # Cloudflare DNS Record
-# https://registry.terraform.io/providers/cloudflare/cloudflare/latest
+# https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/record
 resource "cloudflare_record" "website" {
   zone_id = var.cloudflare_zone_id
   name    = var.dns_record_name
-  value   = azurerm_static_site.swa.default_host_name
+  value   = azurerm_static_web_app.swa.default_host_name
   type    = "CNAME"
   proxied = true
 }

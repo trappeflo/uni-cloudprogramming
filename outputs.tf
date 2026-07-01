@@ -2,8 +2,8 @@
 # https://developer.hashicorp.com/terraform/language/values/outputs
 
 output "static_web_app_url" {
-  description = "Azure Static Web App URL"
-  value       = "https://${azurerm_static_site.swa.default_host_name}"
+  description = "Die URL der Azure Static Web App"
+  value       = "https://${azurerm_static_web_app.swa.default_host_name}"
 }
 
 output "custom_domain_url" {
