@@ -37,3 +37,8 @@ variable "dns_record_name" {
   type        = string
   default     = "cloud"
 }
+
+variable "cloudflare_account_id" {
+  description = "Cloudflare Account ID"
+  type        = string
+}

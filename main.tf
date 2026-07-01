@@ -52,11 +52,28 @@ resource "azurerm_storage_account" "storage" {
 }
 
 # Cloudflare DNS Record
-# https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/record
+# https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/dns_record
 resource "cloudflare_record" "website" {
   zone_id = var.cloudflare_zone_id
   name    = var.dns_record_name
   content = azurerm_storage_account.storage.primary_web_host
   type    = "CNAME"
   proxied = true
+}
+# Cloudflare Worker: Header auf Azure Storage ändern
+# https://developers.cloudflare.com/workers/
+# https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/workers_script
+resource "cloudflare_workers_script" "host_rewrite" {
+  account_id = var.cloudflare_account_id
+  name       = "host_rewrite"
+  content    = file("${path.module}/host_rewrite.js")
+  module     = true
+}
+
+# Cloudflare Worker Route
+# https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/workers_route
+resource "cloudflare_workers_route" "host_rewrite_route" {
+  zone_id     = var.cloudflare_zone_id
+  pattern     = "${var.dns_record_name}.trappeonline.xyz/*"
+  script_name = cloudflare_workers_script.host_rewrite.name
 }
